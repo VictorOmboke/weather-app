@@ -11,6 +11,7 @@ export function getUserLocation() {
     getFahrenheitTemp(locationValue);
     getCelsiusTemp(locationValue);
     getCondition(locationValue);
+    getForecast(locationValue);
     form.reset();
   });
 }
@@ -37,8 +38,8 @@ async function getLocation(location) {
       `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
       { mode: "cors" }
     );
-    const fahrenheitTempData = await response.json();
-    console.log(fahrenheitTempData.location.name);
+    const locationData = await response.json();
+    console.log(locationData.location.name);
   } catch (error) {
     console.log("Error fetching data", error);
   }
@@ -62,8 +63,8 @@ async function getCelsiusTemp(location) {
       `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
       { mode: "cors" }
     );
-    const fahrenheitTempData = await response.json();
-    console.log(fahrenheitTempData.current.temp_c);
+    const celsiusTempData = await response.json();
+    console.log(celsiusTempData.current.temp_c);
   } catch (error) {
     console.log("Error fetching data", error);
   }
@@ -75,9 +76,22 @@ async function getCondition(location) {
       `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
       { mode: "cors" }
     );
-    const fahrenheitTempData = await response.json();
-    console.log(fahrenheitTempData.current.condition.text);
+    const conditionData = await response.json();
+    console.log(conditionData.current.condition.text);
   } catch (error) {
     console.log("Error fetching data", error);
+  }
+}
+
+async function getForecast(location) {
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      { mode: "cors" }
+    );
+    const forecastData = await response.json();
+    console.log(forecastData);
+  } catch (error) {
+    "Error fetching data", error;
   }
 }
