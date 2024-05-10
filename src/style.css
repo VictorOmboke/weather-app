@@ -1,0 +1,107 @@
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(to top right, #0a78e0, #ffffac);
+}
+
+.formContainer {
+  margin: 50px;
+}
+
+#form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#location {
+  border-style: none;
+  border-radius: 15px;
+  padding: 10px 20px;
+}
+label {
+  color: white;
+  font-size: 16px;
+}
+
+button {
+  height: 35px;
+  width: 35px;
+  border-style: none;
+  border-radius: 50%;
+  background-color: rgb(138, 187, 251);
+  cursor: pointer;
+}
+button:active {
+  transform: scale(0.96);
+}
+
+#today {
+  height: 300px;
+  width: 300px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.11);
+  margin-bottom: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.city {
+  color: white;
+  font-size: 25px;
+}
+
+.temp {
+  color: white;
+  font-size: 150px;
+  font-weight: 400;
+}
+
+.conditions {
+  color: white;
+  font-size: 25px;
+}
+
+#dayOneForecast,
+#dayTwoForecast,
+#dayThreeForecast {
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.11);
+  height: 150px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.dayOneDate,
+.dayOneConditions,
+.dayOneTemp {
+  font-size: 25px;
+}
+
+.dayTwoDate,
+.dayTwoConditions,
+.dayTwoTemp {
+  font-size: 25px;
+}
+
+.dayThreeDate,
+.dayThreeConditions,
+.dayThreeTemp {
+  font-size: 25px;
+}

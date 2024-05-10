@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export function getUserLocation() {
   const form = document.getElementById("form");
   const input = document.getElementById("location");
@@ -184,7 +186,11 @@ async function getDateTomorrow(location) {
       { mode: "cors" }
     );
     const tomorrowDate = await response.json();
-    console.log(`Date: ${tomorrowDate.forecast.forecastday[1].date}`);
+    const date = format(
+      new Date(tomorrowDate.forecast.forecastday[1].date),
+      "EEEE"
+    );
+    console.log(`Date: ${date}`);
   } catch (error) {
     "Error fetching data", error;
   }
@@ -242,7 +248,11 @@ async function getDateNextDay(location) {
       { mode: "cors" }
     );
     const nextDayDate = await response.json();
-    console.log(`Date: ${nextDayDate.forecast.forecastday[2].date}`);
+    const date = format(
+      new Date(nextDayDate.forecast.forecastday[2].date),
+      "EEEE"
+    );
+    console.log(`Date: ${date}`);
   } catch (error) {
     "Error fetching data", error;
   }
