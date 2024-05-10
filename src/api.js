@@ -1,20 +1,34 @@
 import { format } from "date-fns";
 
-export function getUserLocation() {
-  const form = document.getElementById("form");
-  const input = document.getElementById("location");
+function getUserLocation() {
+  return new Promise((resolve, reject) => {
+    const form = document.getElementById("form");
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const input = document.getElementById("location");
 
-    const locationValue = input.value.trim();
-    console.log(`User location input: ${locationValue}`);
+      const locationValue = input.value.trim();
+      console.log(`User location input: ${locationValue}`);
 
+      resolve(locationValue);
+
+      form.reset();
+    });
+  });
+}
+
+export function logData() {
+  getUserLocation().then((locationValue) => {
     getCurrentWeather(locationValue);
     getLocation(locationValue);
     getFahrenheitTemp(locationValue);
     getCelsiusTemp(locationValue);
     getCondition(locationValue);
+    getFahrenheitTempHigh(locationValue);
+    getFahrenheitTempLow(locationValue);
+    getCelsiusTempHigh(locationValue);
+    getCelsiusTempLow(locationValue);
 
     getForecast(locationValue);
 
@@ -32,8 +46,6 @@ export function getUserLocation() {
     getConditionsNextDay(locationValue);
     getFahrenheitRangeNextDay(locationValue);
     getCelsiusRangeNextDay(locationValue);
-
-    form.reset();
   });
 }
 
@@ -53,7 +65,7 @@ function getCurrentWeather(location) {
     });
 }
 
-async function getLocation(location) {
+export async function getLocation(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
@@ -66,7 +78,7 @@ async function getLocation(location) {
   }
 }
 
-async function getFahrenheitTemp(location) {
+export async function getFahrenheitTemp(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
@@ -80,7 +92,7 @@ async function getFahrenheitTemp(location) {
     console.log("Error fetching data", error);
   }
 }
-async function getCelsiusTemp(location) {
+export async function getCelsiusTemp(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
@@ -95,7 +107,7 @@ async function getCelsiusTemp(location) {
   }
 }
 
-async function getCondition(location) {
+export async function getCondition(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
@@ -108,7 +120,66 @@ async function getCondition(location) {
   }
 }
 
-async function getForecast(location) {
+export async function getFahrenheitTempHigh(location) {
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      { mode: "cors" }
+    );
+    const fahrenheitTempHigh = await response.json();
+    console.log(
+      `Current temp high in F: ${fahrenheitTempHigh.forecast.forecastday[0].day.maxtemp_f}`
+    );
+  } catch (error) {
+    "Error fetching data", error;
+  }
+}
+
+export async function getFahrenheitTempLow(location) {
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      { mode: "cors" }
+    );
+    const fahrenheitTempLow = await response.json();
+    console.log(
+      `current temp Low in F: ${fahrenheitTempLow.forecast.forecastday[0].day.mintemp_f}`
+    );
+  } catch (error) {
+    "Error fetching data", error;
+  }
+}
+
+export async function getCelsiusTempHigh(location) {
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      { mode: "cors" }
+    );
+    const celsiusTempHigh = await response.json();
+    console.log(
+      `Current temp High in C: ${celsiusTempHigh.forecast.forecastday[0].day.maxtemp_c}`
+    );
+  } catch (error) {
+    "Error fetching data", error;
+  }
+}
+export async function getCelsiusTempLow(location) {
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      { mode: "cors" }
+    );
+    const celsiusTempLow = await response.json();
+    console.log(
+      `Current temp High in C: ${celsiusTempLow.forecast.forecastday[0].day.mintemp_c}`
+    );
+  } catch (error) {
+    "Error fetching data", error;
+  }
+}
+
+export async function getForecast(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -121,7 +192,7 @@ async function getForecast(location) {
   }
 }
 
-async function getDateToday(location) {
+export async function getDateToday(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -134,7 +205,7 @@ async function getDateToday(location) {
   }
 }
 
-async function getConditionsToday(location) {
+export async function getConditionsToday(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -149,7 +220,7 @@ async function getConditionsToday(location) {
   }
 }
 
-async function getFahrenheitRangeToday(location) {
+export async function getFahrenheitRangeToday(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -164,7 +235,7 @@ async function getFahrenheitRangeToday(location) {
   }
 }
 
-async function getCelsiusRangeToday(location) {
+export async function getCelsiusRangeToday(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -179,7 +250,7 @@ async function getCelsiusRangeToday(location) {
   }
 }
 
-async function getDateTomorrow(location) {
+export async function getDateTomorrow(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -196,7 +267,7 @@ async function getDateTomorrow(location) {
   }
 }
 
-async function getConditionsTomorrow(location) {
+export async function getConditionsTomorrow(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -211,7 +282,7 @@ async function getConditionsTomorrow(location) {
   }
 }
 
-async function getFahrenheitRangeTomorrow(location) {
+export async function getFahrenheitRangeTomorrow(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -226,7 +297,7 @@ async function getFahrenheitRangeTomorrow(location) {
   }
 }
 
-async function getCelsiusRangeTomorrow(location) {
+export async function getCelsiusRangeTomorrow(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -241,7 +312,7 @@ async function getCelsiusRangeTomorrow(location) {
   }
 }
 
-async function getDateNextDay(location) {
+export async function getDateNextDay(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -258,7 +329,7 @@ async function getDateNextDay(location) {
   }
 }
 
-async function getConditionsNextDay(location) {
+export async function getConditionsNextDay(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -273,7 +344,7 @@ async function getConditionsNextDay(location) {
   }
 }
 
-async function getFahrenheitRangeNextDay(location) {
+export async function getFahrenheitRangeNextDay(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
@@ -288,7 +359,7 @@ async function getFahrenheitRangeNextDay(location) {
   }
 }
 
-async function getCelsiusRangeNextDay(location) {
+export async function getCelsiusRangeNextDay(location) {
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,

@@ -1,3 +1,3 @@
 import "./style.css";
-import { getUserLocation } from "./api.js";
-getUserLocation();
+import { logData } from "./api.js";
+logData();
