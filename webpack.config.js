@@ -27,7 +27,7 @@ module.exports = {
             loader: "file-loader",
             options: {
               name: "[search].[svg]",
-              outPath: "images/",
+              outputPath: "images/",
             },
           },
         ],
