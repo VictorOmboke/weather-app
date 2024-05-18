@@ -1,5 +1,9 @@
 import "./style.css";
-import { fetchCurrentWeather, fetchForecastWeather } from "./api.js";
+import {
+  fetchCurrentWeather,
+  fetchForecastWeather,
+  fetchWeather,
+} from "./api.js";
 import {
   updateCity,
   updateTemperatureFahrenheit,
@@ -26,15 +30,10 @@ async function displayData() {
     const locationValue = document.getElementById("location").value.trim();
 
     const currentLocationData = await fetchCurrentWeather(locationValue);
-    console.log(currentLocationData);
 
     const forecastLocationData = await fetchForecastWeather(locationValue);
-    console.log(forecastLocationData);
 
     const tempToggle = document.querySelector(".tempToggle");
-
-    if (tempToggle.textContent == "°C") {
-    }
 
     updateCity(currentLocationData);
     updateTemperatureFahrenheit(currentLocationData);
@@ -72,9 +71,48 @@ async function displayData() {
   }
 }
 
-toggleBtnText();
+async function displayWeatherOnLoad() {
+  const location = "London";
+  const tempToggle = document.querySelector(".tempToggle");
+  const weatherData = await fetchWeather(location);
+
+  updateCity(weatherData);
+  updateTemperatureFahrenheit(weatherData);
+  updateConditions(weatherData);
+  updateTempRange(weatherData);
+
+  updateDayOneConditions(weatherData);
+  updateDayOneTemp(weatherData);
+
+  updateDayTwoDate(weatherData);
+  updateDayTwoConditions(weatherData);
+  updateDayTwoTemp(weatherData);
+
+  updateDayThreeDate(weatherData);
+  updateDayThreeConditions(weatherData);
+  updateDayThreeTemp(weatherData);
+
+  tempToggle.addEventListener("click", () => {
+    if (tempToggle.textContent !== "°C") {
+      updateTemperatureCelsius(weatherData);
+      updateCelsiusTempRange(weatherData);
+      updateDayOneTempCelsius(weatherData);
+      updateDayTwoTempCelsius(weatherData);
+      updateDayThreeTempCelsius(weatherData);
+    } else {
+      updateTemperatureFahrenheit(weatherData);
+      updateTempRange(weatherData);
+      updateDayOneTemp(weatherData);
+      updateDayTwoTemp(weatherData);
+      updateDayThreeTemp(weatherData);
+    }
+  });
+}
 
 document.getElementById("form").addEventListener("submit", (event) => {
   event.preventDefault();
   displayData();
 });
+
+toggleBtnText();
+displayWeatherOnLoad();

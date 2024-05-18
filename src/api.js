@@ -25,3 +25,17 @@ export async function fetchForecastWeather(location) {
     throw error;
   }
 }
+
+export async function fetchWeather(location) {
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      { mode: "cors" }
+    );
+    const data = response.json();
+    return await data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
