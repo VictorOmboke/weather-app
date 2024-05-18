@@ -1,1 +1,1 @@
-# wether-app
+This weather app was a project from the Odin Projects advanced javascript curriculum. This project was an introduction to working with API's and using different methods of accessing data from API's like promises and the use of async and await. Overall a simple project and am now aware of the power of API's.
