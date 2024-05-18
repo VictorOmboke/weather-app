@@ -3,6 +3,7 @@ import { fetchCurrentWeather, fetchForecastWeather } from "./api.js";
 import {
   updateCity,
   updateTemperatureFahrenheit,
+  updateTemperatureCelsius,
   updateConditions,
   updateTempRange,
   updateCelsiusTempRange,
@@ -17,8 +18,8 @@ import {
   updateDayThreeConditions,
   updateDayThreeTemp,
   updateDayThreeTempCelsius,
+  toggleBtnText,
 } from "./dom.js";
-import { format } from "date-fns";
 
 async function displayData() {
   try {
@@ -29,6 +30,11 @@ async function displayData() {
 
     const forecastLocationData = await fetchForecastWeather(locationValue);
     console.log(forecastLocationData);
+
+    const tempToggle = document.querySelector(".tempToggle");
+
+    if (tempToggle.textContent == "°C") {
+    }
 
     updateCity(currentLocationData);
     updateTemperatureFahrenheit(currentLocationData);
@@ -45,10 +51,28 @@ async function displayData() {
     updateDayThreeDate(forecastLocationData);
     updateDayThreeConditions(forecastLocationData);
     updateDayThreeTemp(forecastLocationData);
+
+    tempToggle.addEventListener("click", () => {
+      if (tempToggle.textContent !== "°C") {
+        updateTemperatureCelsius(currentLocationData);
+        updateCelsiusTempRange(forecastLocationData);
+        updateDayOneTempCelsius(forecastLocationData);
+        updateDayTwoTempCelsius(forecastLocationData);
+        updateDayThreeTempCelsius(forecastLocationData);
+      } else {
+        updateTemperatureFahrenheit(currentLocationData);
+        updateTempRange(forecastLocationData);
+        updateDayOneTemp(forecastLocationData);
+        updateDayTwoTemp(forecastLocationData);
+        updateDayThreeTemp(forecastLocationData);
+      }
+    });
   } catch (error) {
     console.error("Error displaying data:", error);
   }
 }
+
+toggleBtnText();
 
 document.getElementById("form").addEventListener("submit", (event) => {
   event.preventDefault();

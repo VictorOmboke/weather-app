@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 //Display functions responsible for current temperature conditions
 export function updateCity(locationData) {
@@ -8,20 +8,14 @@ export function updateCity(locationData) {
 
 export function updateTemperatureFahrenheit(locationData) {
   const temp = document.querySelector(".temp");
-  const fahrenheitTemp = document.createTextNode(
-    `${Math.round(locationData.current.temp_f)}°`
-  );
 
-  temp.appendChild(fahrenheitTemp);
+  temp.textContent = `${Math.round(locationData.current.temp_f)}°`;
 }
 
 export function updateTemperatureCelsius(locationData) {
   const temp = document.querySelector(".temp");
-  const celsiusTemp = createTextNode(
-    `${Math.round(locationData.current.temp_c)}°`
-  );
 
-  temp.appendChild(celsiusTemp);
+  temp.textContent = `${Math.round(locationData.current.temp_c)}°`;
 }
 
 export function updateConditions(locationData) {
@@ -31,24 +25,18 @@ export function updateConditions(locationData) {
 
 export function updateTempRange(locationData) {
   const tempRange = document.querySelector(".tempRange");
-  const tempLowHigh = document.createTextNode(
-    `L: ${Math.round(
-      locationData.forecast.forecastday[0].day.mintemp_f
-    )}° H: ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_f)}°`
-  );
 
-  tempRange.appendChild(tempLowHigh);
+  tempRange.textContent = `L: ${Math.round(
+    locationData.forecast.forecastday[0].day.mintemp_f
+  )}° H: ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_f)}°`;
 }
 
 export function updateCelsiusTempRange(locationData) {
   const tempRange = document.querySelector(".tempRange");
-  const celsiusLowHigh = document.createTextNode(
-    `L: ${Math.round(
-      locationData.forecast.forecastday[0].day.mintemp_c
-    )}° H: ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_c)}°`
-  );
 
-  tempRange.appendChild(celsiusLowHigh);
+  tempRange.textContent = `L: ${Math.round(
+    locationData.forecast.forecastday[0].day.mintemp_c
+  )}° H: ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_c)}°`;
 }
 
 //Display functions responsible for displaying the data for day one or the current day of the 3 day forecast
@@ -60,31 +48,25 @@ export function updateDayOneConditions(locationData) {
 
 export function updateDayOneTemp(locationData) {
   const dayOneTempRange = document.querySelector(".dayOneTemp");
-  const temps = document.createTextNode(
-    `${Math.round(
-      locationData.forecast.forecastday[0].day.mintemp_f
-    )}° - ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_f)}°`
-  );
 
-  dayOneTempRange.appendChild(temps);
+  dayOneTempRange.textContent = `${Math.round(
+    locationData.forecast.forecastday[0].day.mintemp_f
+  )}° - ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_f)}°`;
 }
 
 export function updateDayOneTempCelsius(locationData) {
   const dayOneTempRange = document.querySelector(".dayOneTemp");
-  const celsiusTemps = document.createTextNode(
-    `${Math.round(
-      locationData.forecast.forecastday[0].day.mintemp_c
-    )}° - ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_c)}°`
-  );
 
-  dayOneTempRange.appendChild(celsiusTemps);
+  dayOneTempRange.textContent = `${Math.round(
+    locationData.forecast.forecastday[0].day.mintemp_c
+  )}° - ${Math.round(locationData.forecast.forecastday[0].day.maxtemp_c)}°`;
 }
 
 //Display functions responsible for displaying the data for day two of the 3 day forecast
 export function updateDayTwoDate(locationData) {
   const dayTwoDate = document.querySelector(".dayTwoDate");
   const date = format(
-    new Date(locationData.forecast.forecastday[1].date),
+    parseISO(locationData.forecast.forecastday[1].date),
     "EEEE"
   );
   dayTwoDate.textContent = date;
@@ -98,31 +80,25 @@ export function updateDayTwoConditions(locationData) {
 
 export function updateDayTwoTemp(locationData) {
   const dayTwoTempRange = document.querySelector(".dayTwoTemp");
-  const temps = document.createTextNode(
-    `${Math.round(
-      locationData.forecast.forecastday[1].day.mintemp_f
-    )}° - ${Math.round(locationData.forecast.forecastday[1].day.maxtemp_f)}°`
-  );
 
-  dayTwoTempRange.appendChild(temps);
+  dayTwoTempRange.textContent = `${Math.round(
+    locationData.forecast.forecastday[1].day.mintemp_f
+  )}° - ${Math.round(locationData.forecast.forecastday[1].day.maxtemp_f)}°`;
 }
 
 export function updateDayTwoTempCelsius(locationData) {
   const dayTwoTempRange = document.querySelector(".dayTwoTemp");
-  const celsiusTemps = document.createTextNode(
-    `${Math.round(
-      locationData.forecast.forecastday[1].day.mintemp_c
-    )}° - ${Math.round(locationData.forecast.forecastday[1].day.maxtemp_c)}°`
-  );
 
-  dayTwoTempRange.appendChild(celsiusTemps);
+  dayTwoTempRange.textContent = `${Math.round(
+    locationData.forecast.forecastday[1].day.mintemp_c
+  )}° - ${Math.round(locationData.forecast.forecastday[1].day.maxtemp_c)}°`;
 }
 
-//Display functions responsible for displaying the data for day 3 of the the 3 day forecast
+//Display functions responsible for displaying the data for day 3 of the 3 day forecast
 export function updateDayThreeDate(locationData) {
   const dayThreeDate = document.querySelector(".dayThreeDate");
   const date = format(
-    new Date(locationData.forecast.forecastday[2].date),
+    parseISO(locationData.forecast.forecastday[2].date),
     "EEEE"
   );
   dayThreeDate.textContent = date;
@@ -136,22 +112,33 @@ export function updateDayThreeConditions(locationData) {
 
 export function updateDayThreeTemp(locationData) {
   const dayThreeTempRange = document.querySelector(".dayThreeTemp");
-  const temps = document.createTextNode(
-    `${Math.round(
-      locationData.forecast.forecastday[2].day.mintemp_f
-    )}° - ${Math.round(locationData.forecast.forecastday[2].day.maxtemp_f)}°`
-  );
 
-  dayThreeTempRange.appendChild(temps);
+  dayThreeTempRange.textContent = `${Math.round(
+    locationData.forecast.forecastday[2].day.mintemp_f
+  )}° - ${Math.round(locationData.forecast.forecastday[2].day.maxtemp_f)}°`;
 }
 
 export function updateDayThreeTempCelsius(locationData) {
   const dayThreeTempRange = document.querySelector(".dayThreeTemp");
-  const celsiusTemps = document.createTextNode(
-    `${Math.round(
-      locationData.forecast.forecastday[2].day.mintemp_c
-    )}° - ${Math.round(locationData.forecast.forecastday[2].day.maxtemp_c)}°`
-  );
 
-  dayThreeTempRange.appendChild(celsiusTemps);
+  dayThreeTempRange.textContent = `${Math.round(
+    locationData.forecast.forecastday[2].day.mintemp_c
+  )}° - ${Math.round(locationData.forecast.forecastday[2].day.maxtemp_c)}°`;
+}
+
+//function for toggling temperatures from fahrenheit to celsius and vice versa.
+export function toggleBtnText() {
+  const toggleTemp = document.querySelector(".tempToggle");
+
+  let clicked = false;
+
+  toggleTemp.addEventListener("click", () => {
+    if (clicked) {
+      toggleTemp.textContent = "°C";
+    } else {
+      toggleTemp.textContent = "°F";
+    }
+
+    clicked = !clicked;
+  });
 }
