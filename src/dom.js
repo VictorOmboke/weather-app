@@ -1,4 +1,5 @@
 import { format, parseISO } from "date-fns";
+import Search from "./search.svg";
 
 //Display functions responsible for current temperature conditions
 export function updateCity(locationData) {
@@ -141,4 +142,13 @@ export function toggleBtnText() {
 
     clicked = !clicked;
   });
+}
+
+//function to add svg to search button
+export function searchBtn() {
+  const searchBtn = document.querySelector(".search");
+  const svg = new Image();
+  svg.src = Search;
+
+  searchBtn.appendChild(svg);
 }

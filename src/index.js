@@ -23,6 +23,7 @@ import {
   updateDayThreeTemp,
   updateDayThreeTempCelsius,
   toggleBtnText,
+  searchBtn,
 } from "./dom.js";
 
 async function displayData() {
@@ -114,5 +115,6 @@ document.getElementById("form").addEventListener("submit", (event) => {
   displayData();
 });
 
+searchBtn();
 toggleBtnText();
 displayWeatherOnLoad();

@@ -21,17 +21,8 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[search].[svg]",
-              outputPath: "images/",
-            },
-          },
-        ],
-        include: path.resolve(__dirname, "src/SVG"),
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
       },
     ],
   },
