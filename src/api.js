@@ -1,7 +1,7 @@
 export async function fetchCurrentWeather(location) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
+      `https://api.weatherapi.com/v1/current.json?key=71778c6486914d6188a01735242704&q=${location}`,
       { mode: "cors" }
     );
     const currentData = response.json();
@@ -15,7 +15,7 @@ export async function fetchCurrentWeather(location) {
 export async function fetchForecastWeather(location) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      `https://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
       { mode: "cors" }
     );
     const forecastData = response.json();
@@ -29,7 +29,7 @@ export async function fetchForecastWeather(location) {
 export async function fetchWeather(location) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
+      `https://api.weatherapi.com/v1/forecast.json?key=71778c6486914d6188a01735242704&q=${location}&days=3`,
       { mode: "cors" }
     );
     const data = response.json();
