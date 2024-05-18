@@ -72,7 +72,7 @@ async function displayData() {
 }
 
 async function displayWeatherOnLoad() {
-  const location = "London";
+  const location = "Los Angeles";
   const tempToggle = document.querySelector(".tempToggle");
   const weatherData = await fetchWeather(location);
 
